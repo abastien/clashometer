@@ -1,16 +1,20 @@
-import React from 'react';
-import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const textStyle = {color: isDarkMode ? 'white' : 'black'};
+import attachTheme from './Theme/consumer';
+import {ThemeContextType} from './Theme/context';
 
+const Section: FunctionComponent<
+  PropsWithChildren<ThemeContextType & {title: String}>
+> = ({theme, title, children}) => {
   return (
     <View style={styles.sectionContainer}>
-      <Text style={[styles.sectionTitle, textStyle]}>{title}</Text>
-      <Text style={[styles.sectionDescription, textStyle]}>{children}</Text>
+      <Text style={[styles.sectionTitle, {color: theme.foreground}]}>
+        {title}
+      </Text>
+      <Text style={[styles.sectionDescription, {color: theme.foreground}]}>
+        {children}
+      </Text>
     </View>
   );
 };
@@ -31,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Section;
+export default attachTheme(Section);

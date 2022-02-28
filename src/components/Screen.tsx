@@ -1,28 +1,21 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-} from 'react-native';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
+import {SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
+import {ThemeContextType} from '../theme-context';
+import attachTheme from '../theme-consumer';
 
-const Screen: React.FC = ({children}) => {
-  const isDarkMode = useColorScheme() === 'dark';
+const Screen: FunctionComponent<PropsWithChildren<ThemeContextType>> = ({
+  theme,
+  children,
+}) => (
+  <SafeAreaView style={[styles.screen, {backgroundColor: theme.background}]}>
+    <StatusBar hidden />
+    <ScrollView contentInsetAdjustmentBehavior="automatic">
+      {children}
+    </ScrollView>
+  </SafeAreaView>
+);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? 'black' : 'white',
-  };
-
-  return (
-    <SafeAreaView style={[styles.screen, backgroundStyle]}>
-      <StatusBar hidden />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        {children}
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+Screen.contextTypes;
 
 const styles = StyleSheet.create({
   screen: {
@@ -30,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Screen;
+export default attachTheme(Screen);

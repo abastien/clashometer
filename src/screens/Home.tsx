@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import {Button, View} from 'react-native';
 import Section from '../components/Section';
 import Screen from '../components/Screen';
@@ -8,8 +8,9 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 
-const HomeScreen: React.FC = () => {
+const HomeScreen: FunctionComponent = () => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
+
   return (
     <Screen>
       <View>
